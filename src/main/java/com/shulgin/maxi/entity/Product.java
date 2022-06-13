@@ -1,28 +1,31 @@
 package com.shulgin.maxi.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 
+@Entity
 public class Product {
-
-    private int productCode;
+    @Id
+    private Long productCode;
     private String productName;
     private int countProduct;
     private BigDecimal priceProduct;
 
     public Product() {}
 
-    public Product(int productCode, String productName, int countProduct, BigDecimal priceProduct) {
+    public Product(Long productCode, String productName, int countProduct, BigDecimal priceProduct) {
         this.productCode = productCode;
         this.productName = productName;
         this.countProduct = countProduct;
         this.priceProduct = priceProduct;
     }
 
-    public int getProductCode() {
+    public Long getProductCode() {
         return productCode;
     }
 
-    public void setProductCode(int productCode) {
+    public void setProductCode(Long productCode) {
         this.productCode = productCode;
     }
 
@@ -48,5 +51,15 @@ public class Product {
 
     public void setPriceProduct(BigDecimal priceProduct) {
         this.priceProduct = priceProduct;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productCode=" + productCode +
+                ", productName='" + productName + '\'' +
+                ", countProduct=" + countProduct +
+                ", priceProduct=" + priceProduct +
+                '}';
     }
 }

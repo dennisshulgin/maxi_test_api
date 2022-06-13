@@ -1,8 +1,14 @@
 package com.shulgin.maxi.entity;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.List;
 
 public class Sale {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String cardNumber;
     private long date;
     List<Product> products;
@@ -37,5 +43,14 @@ public class Sale {
 
     public void setProducts(List<Product> products) {
         this.products = products;
+    }
+
+    @Override
+    public String toString() {
+        return "Sale{" +
+                "cardNumber='" + cardNumber + '\'' +
+                ", date=" + date +
+                ", products=" + products +
+                '}';
     }
 }
