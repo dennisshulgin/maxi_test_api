@@ -10,6 +10,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.math.BigDecimal;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -32,7 +34,9 @@ public class SaxParserHandler extends DefaultHandler {
     private boolean isProductPrice = false;
 
     private String cardNumber;
-    private long date;
+
+    private java.sql.Date date;
+    private java.sql.Time time;
 
     private Long productCode;
     private String productName;
@@ -72,7 +76,7 @@ public class SaxParserHandler extends DefaultHandler {
     public void endElement(String uri, String localName, String qName) throws SAXException {
         changeTagState(qName, false);
         if(qName.equals(SaxParserTags.SALE)) {
-            Sale sale = new Sale(cardNumber, date);
+            Sale sale = new Sale(cardNumber, date, time);
             saleService.addSale(sale);
             Map<Long, Integer> productsIdAndCount = products.entrySet()
                     .stream().collect(Collectors.toMap(
@@ -98,7 +102,9 @@ public class SaxParserHandler extends DefaultHandler {
             cardNumber = new String(ch, start, length);
         }
         if (isDate) {
-            date = Long.parseLong(new String(ch, start, length));
+            long longDate = Long.parseLong(new String(ch, start, length));
+            date = new Date(longDate);
+            time = new Time(longDate);
         }
         if(isProductCode) {
             productCode = Long.parseLong(new String(ch, start, length));

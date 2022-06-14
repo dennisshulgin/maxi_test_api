@@ -1,6 +1,5 @@
 package com.shulgin.maxi;
 
-import com.shulgin.maxi.entity.ProductSale;
 import com.shulgin.maxi.entity.Sale;
 import com.shulgin.maxi.exception.CheckParserException;
 import com.shulgin.maxi.parser.SaxCheckParser;
@@ -11,9 +10,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.persistence.EntityManager;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -40,14 +39,14 @@ class MaxiApplicationTests {
 		} catch (CheckParserException e) {
 			e.printStackTrace();
 		}
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-		String dateS = "12.05.2001";
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyy");
 		try {
-			Date date = sdf.parse(dateS);
-			System.out.println(date.getTime());
+			Date date = sdf.parse("05-06-2018");
+			System.out.println(productSaleService.sumAllSalesByDate(new java.sql.Date(date.getTime())));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-
+		productService.findTopProductsByCardName("78483", 5)
+				.forEach(System.out::println);
 	}
 }

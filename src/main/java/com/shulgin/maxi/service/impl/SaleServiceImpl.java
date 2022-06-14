@@ -6,6 +6,8 @@ import com.shulgin.maxi.service.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -25,7 +27,7 @@ public class SaleServiceImpl implements SaleService {
     }
 
     @Override
-    public List<Sale> findSaleByDate(long date) {
+    public List<Sale> findSaleByDate(Date date) {
         return saleRepo.findSaleByDate(date);
     }
 }

@@ -11,17 +11,17 @@ public class Product {
     @Id
     private Long productCode;
     private String productName;
-    private BigDecimal priceProduct;
+    private BigDecimal productPrice;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
     Set<ProductSale> productSale;
 
     public Product() {}
 
-    public Product(Long productCode, String productName, BigDecimal priceProduct) {
+    public Product(Long productCode, String productName, BigDecimal productPrice) {
         this.productCode = productCode;
         this.productName = productName;
-        this.priceProduct = priceProduct;
+        this.productPrice = productPrice;
     }
 
     public Long getProductCode() {
@@ -40,20 +40,20 @@ public class Product {
         this.productName = productName;
     }
 
-    public BigDecimal getPriceProduct() {
-        return priceProduct;
+    public BigDecimal getProductPrice() {
+        return productPrice;
     }
 
-    public void setPriceProduct(BigDecimal priceProduct) {
-        this.priceProduct = priceProduct;
+    public void setProductPrice(BigDecimal priceProduct) {
+        this.productPrice = priceProduct;
     }
 
     @Override
     public String toString() {
         return "Product{" +
-                ", productCode=" + productCode +
+                "productCode=" + productCode +
                 ", productName='" + productName + '\'' +
-                ", priceProduct=" + priceProduct +
+                ", productPrice=" + productPrice +
                 '}';
     }
 
@@ -62,11 +62,11 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return Objects.equals(productCode, product.productCode) && Objects.equals(productName, product.productName) && Objects.equals(priceProduct, product.priceProduct);
+        return Objects.equals(productCode, product.productCode) && Objects.equals(productName, product.productName) && Objects.equals(productPrice, product.productPrice);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(productCode, productName, priceProduct);
+        return Objects.hash(productCode, productName, productPrice);
     }
 }

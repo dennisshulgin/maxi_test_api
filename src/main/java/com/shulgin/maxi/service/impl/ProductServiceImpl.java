@@ -6,6 +6,8 @@ import com.shulgin.maxi.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProductServiceImpl implements ProductService {
 
@@ -19,5 +21,10 @@ public class ProductServiceImpl implements ProductService {
         }
         productRepo.saveAndFlush(product);
         return true;
+    }
+
+    @Override
+    public List<Product> findTopProductsByCardName(String cardName, int count) {
+        return productRepo.findTopProductsByCardName(cardName, count);
     }
 }

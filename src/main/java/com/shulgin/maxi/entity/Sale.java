@@ -1,6 +1,8 @@
 package com.shulgin.maxi.entity;
 
 import javax.persistence.*;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.Set;
 
 @Entity
@@ -9,16 +11,20 @@ public class Sale {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String cardNumber;
-    private long date;
+
+    private java.sql.Date date;
+
+    private java.sql.Time time;
 
     @OneToMany(mappedBy = "sale", fetch = FetchType.EAGER)
     Set<ProductSale> productSale;
 
     public Sale() {}
 
-    public Sale(String cardNumber, long date) {
+    public Sale(String cardNumber, java.sql.Date date, java.sql.Time time) {
         this.cardNumber = cardNumber;
         this.date = date;
+        this.time = time;
     }
 
     public Long getId() {
@@ -33,16 +39,24 @@ public class Sale {
         this.cardNumber = cardNumber;
     }
 
-    public long getDate() {
+    public Set<ProductSale> getProductSale() {
+        return productSale;
+    }
+
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(long date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    public Set<ProductSale> getProductSale() {
-        return productSale;
+    public Time getTime() {
+        return time;
+    }
+
+    public void setTime(Time time) {
+        this.time = time;
     }
 
     @Override

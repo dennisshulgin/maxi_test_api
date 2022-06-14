@@ -10,6 +10,8 @@ import com.shulgin.maxi.service.ProductSaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,5 +34,10 @@ public class ProductSaleServiceImpl implements ProductSaleService {
             productSaleRepo.save(productSale);
         }
         return false;
+    }
+
+    @Override
+    public BigDecimal sumAllSalesByDate(Date date) {
+        return productSaleRepo.sumAllSalesByDate(date);
     }
 }
