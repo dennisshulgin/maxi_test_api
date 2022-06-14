@@ -5,16 +5,8 @@ import com.shulgin.maxi.entity.Sale;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 public class SaleUtils {
 
-    public static BigDecimal calculateSumProducts(Sale sale) {
-        List<Product> products = sale.getProducts();
-        if(products == null) {
-            return BigDecimal.ZERO;
-        }
-        return products.stream()
-                .map(Product::getPriceProduct)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-    }
 }

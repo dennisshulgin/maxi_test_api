@@ -1,24 +1,28 @@
 package com.shulgin.maxi.entity;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.util.List;
+import javax.persistence.*;
+import java.util.Set;
 
+@Entity
 public class Sale {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String cardNumber;
     private long date;
-    List<Product> products;
+
+    @OneToMany(mappedBy = "sale", fetch = FetchType.EAGER)
+    Set<ProductSale> productSale;
 
     public Sale() {}
 
-    public Sale(String cardNumber, long date, List<Product> products) {
+    public Sale(String cardNumber, long date) {
         this.cardNumber = cardNumber;
         this.date = date;
-        this.products = products;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getCardNumber() {
@@ -37,12 +41,8 @@ public class Sale {
         this.date = date;
     }
 
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public Set<ProductSale> getProductSale() {
+        return productSale;
     }
 
     @Override
@@ -50,7 +50,6 @@ public class Sale {
         return "Sale{" +
                 "cardNumber='" + cardNumber + '\'' +
                 ", date=" + date +
-                ", products=" + products +
                 '}';
     }
 }

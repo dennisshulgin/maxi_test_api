@@ -14,27 +14,28 @@ import java.util.List;
 @RestController
 @RequestMapping("api")
 public class SaleController {
-    private List<Product> products = new ArrayList<Product>() {{
+    /*private List<Product> products = new ArrayList<Product>() {{
         add(new Product(10, "Water", 1, new BigDecimal(3)));
         add(new Product(15, "Bread", 1, new BigDecimal(6)));
         add(new Product(17, "Ice", 2, new BigDecimal(5)));
-    }};
+    }};*/
 
-    private List<Sale> sales = new ArrayList<Sale>() {{
-        add(new Sale("12345555", 12334444, products));
-    }};
+   /* private List<Sale> sales = new ArrayList<Sale>() {{
+        add(new Sale("12345555", 12334444, null));
+    }};*/
 
     @GetMapping("/sales")
     public List<Sale> saleList() {
-        return sales;
+        return null;
     }
 
     @GetMapping("/sales/{cardNumber}")
     public Sale sale(@PathVariable String cardNumber) {
-        return sales.stream()
+        return null;
+        /*return sales.stream()
                 .filter(x -> x.getCardNumber().equals(cardNumber))
                 .findFirst()
-                .get();
+                .get();*/
     }
 
 }

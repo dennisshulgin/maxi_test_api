@@ -2,16 +2,23 @@ package com.shulgin.maxi.parser;
 
 import com.shulgin.maxi.entity.Product;
 import com.shulgin.maxi.entity.Sale;
-import com.shulgin.maxi.util.SaleUtils;
+import com.shulgin.maxi.service.ProductSaleService;
+import com.shulgin.maxi.service.ProductService;
+import com.shulgin.maxi.service.SaleService;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class SaxParserHandler extends DefaultHandler {
+
+    private ProductService productService;
+    private SaleService saleService;
+    private ProductSaleService productSaleService;
 
     private String currentTagName;
     private boolean isSale = false;
@@ -32,11 +39,14 @@ public class SaxParserHandler extends DefaultHandler {
     private BigDecimal productPrice;
     private int productCount;
 
-    List<Sale> sales = new ArrayList<>();
-    List<Product> products;
+    HashMap<Product, Integer> products;
 
-    public List<Sale> getSalesList() {
-        return sales;
+    public SaxParserHandler(ProductService productService,
+                            SaleService saleService,
+                            ProductSaleService productSaleService) {
+        this.productService = productService;
+        this.saleService = saleService;
+        this.productSaleService = productSaleService;
     }
 
     @Override
@@ -53,7 +63,7 @@ public class SaxParserHandler extends DefaultHandler {
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         currentTagName = qName;
         if(currentTagName.equals(SaxParserTags.PRODUCTS)) {
-            products = new ArrayList<>();
+            products = new HashMap<>();
         }
         changeTagState(currentTagName, true);
     }
@@ -62,11 +72,19 @@ public class SaxParserHandler extends DefaultHandler {
     public void endElement(String uri, String localName, String qName) throws SAXException {
         changeTagState(qName, false);
         if(qName.equals(SaxParserTags.SALE)) {
-            Sale sale = new Sale(cardNumber, date, products);
-            sales.add(sale);
+            Sale sale = new Sale(cardNumber, date);
+            saleService.addSale(sale);
+            Map<Long, Integer> productsIdAndCount = products.entrySet()
+                    .stream().collect(Collectors.toMap(
+                            x -> x.getKey().getProductCode(),
+                            Map.Entry::getValue
+                    ));
+            productSaleService.addProductSale(sale.getId(), productsIdAndCount);
         }
         if ((qName.equals(SaxParserTags.PRODUCT))) {
-            products.add(new Product(productCode, productName, productCount, productPrice));
+            Product product = new Product(productCode, productName, productPrice);
+            productService.addProduct(product);
+            products.put(product, products.getOrDefault(product, 0) + productCount);
         }
         currentTagName = null;
     }
