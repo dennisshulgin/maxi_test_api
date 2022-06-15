@@ -38,5 +38,4 @@ public class SaleController {
         products = products == null ? new ArrayList<>() : products;
         return products;
     }
-
 }
