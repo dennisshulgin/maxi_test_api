@@ -17,7 +17,7 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
             "inner join product p on ps.product_id=p.product_code " +
             "where s.card_number=:cardname " +
             "group by p.product_name, p.product_price, p.product_code " +
-            "order by count desc limit :count", nativeQuery = true)
+            "order by count desc limit :limit", nativeQuery = true)
     List<Product> findTopProductsByCardName(@Param("cardname")String cardName,
-                                            @Param("count") int count);
+                                            @Param("limit") int limit);
 }

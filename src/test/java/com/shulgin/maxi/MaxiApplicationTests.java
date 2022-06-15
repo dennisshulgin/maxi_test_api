@@ -39,14 +39,6 @@ class MaxiApplicationTests {
 		} catch (CheckParserException e) {
 			e.printStackTrace();
 		}
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyy");
-		try {
-			Date date = sdf.parse("05-06-2018");
-			System.out.println(productSaleService.sumAllSalesByDate(new java.sql.Date(date.getTime())));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		productService.findTopProductsByCardName("78483", 5)
-				.forEach(System.out::println);
+
 	}
 }

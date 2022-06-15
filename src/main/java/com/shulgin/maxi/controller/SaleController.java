@@ -1,41 +1,42 @@
 package com.shulgin.maxi.controller;
 
 import com.shulgin.maxi.entity.Product;
-import com.shulgin.maxi.entity.Sale;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.shulgin.maxi.entity.Sum;
+import com.shulgin.maxi.service.ProductSaleService;
+import com.shulgin.maxi.service.ProductService;
+import com.shulgin.maxi.service.SaleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 @RestController
 @RequestMapping("api")
 public class SaleController {
-    /*private List<Product> products = new ArrayList<Product>() {{
-        add(new Product(10, "Water", 1, new BigDecimal(3)));
-        add(new Product(15, "Bread", 1, new BigDecimal(6)));
-        add(new Product(17, "Ice", 2, new BigDecimal(5)));
-    }};*/
 
-   /* private List<Sale> sales = new ArrayList<Sale>() {{
-        add(new Sale("12345555", 12334444, null));
-    }};*/
+    @Autowired
+    private ProductService productService;
+    @Autowired
+    private SaleService saleService;
+    @Autowired
+    private ProductSaleService productSaleService;
 
-    @GetMapping("/sales")
-    public List<Sale> saleList() {
-        return null;
+    @GetMapping("/sales.sum")
+    public Sum saleList(@RequestParam("date") Long date) {
+        Date sqlDate = new Date(date);
+        BigDecimal sum = productSaleService.sumAllSalesByDate(sqlDate);
+        return new Sum(sum);
     }
 
-    @GetMapping("/sales/{cardNumber}")
-    public Sale sale(@PathVariable String cardNumber) {
-        return null;
-        /*return sales.stream()
-                .filter(x -> x.getCardNumber().equals(cardNumber))
-                .findFirst()
-                .get();*/
+    @GetMapping("/sales.top")
+    public List<Product> sale(@RequestParam("card") String cardNumber, @RequestParam int limit) {
+        List<Product> products = productService.findTopProductsByCardName(cardNumber, limit);
+        return products;
     }
 
 }

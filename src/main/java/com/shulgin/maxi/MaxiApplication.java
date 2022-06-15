@@ -9,5 +9,4 @@ public class MaxiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MaxiApplication.class, args);
 	}
-
 }

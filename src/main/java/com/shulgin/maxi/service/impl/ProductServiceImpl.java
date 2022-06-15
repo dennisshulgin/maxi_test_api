@@ -24,7 +24,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findTopProductsByCardName(String cardName, int count) {
-        return productRepo.findTopProductsByCardName(cardName, count);
+    public List<Product> findTopProductsByCardName(String cardName, int limit) {
+        return productRepo.findTopProductsByCardName(cardName, limit);
     }
 }

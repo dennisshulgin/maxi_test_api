@@ -8,5 +8,5 @@ import java.util.List;
 @Service
 public interface ProductService {
     boolean addProduct(Product product);
-    List<Product> findTopProductsByCardName(String cardName, int count);
+    List<Product> findTopProductsByCardName(String cardName, int limit);
 }
