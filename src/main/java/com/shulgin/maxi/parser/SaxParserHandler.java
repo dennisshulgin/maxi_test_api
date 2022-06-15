@@ -5,6 +5,8 @@ import com.shulgin.maxi.entity.Sale;
 import com.shulgin.maxi.service.ProductSaleService;
 import com.shulgin.maxi.service.ProductService;
 import com.shulgin.maxi.service.SaleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -16,10 +18,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Component
 public class SaxParserHandler extends DefaultHandler {
 
+    @Autowired
     private ProductService productService;
+    @Autowired
     private SaleService saleService;
+    @Autowired
     private ProductSaleService productSaleService;
 
     private String currentTagName;
@@ -44,14 +50,6 @@ public class SaxParserHandler extends DefaultHandler {
     private int productCount;
 
     HashMap<Product, Integer> products;
-
-    public SaxParserHandler(ProductService productService,
-                            SaleService saleService,
-                            ProductSaleService productSaleService) {
-        this.productService = productService;
-        this.saleService = saleService;
-        this.productSaleService = productSaleService;
-    }
 
     @Override
     public void startDocument() throws SAXException {

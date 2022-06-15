@@ -3,9 +3,6 @@ package com.shulgin.maxi.service.impl;
 import com.shulgin.maxi.exception.CheckParserException;
 import com.shulgin.maxi.parser.SaxCheckParser;
 import com.shulgin.maxi.service.ParserService;
-import com.shulgin.maxi.service.ProductSaleService;
-import com.shulgin.maxi.service.ProductService;
-import com.shulgin.maxi.service.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -24,16 +21,10 @@ public class ParserServiceImpl implements ParserService {
     private String path;
 
     @Autowired
-    private ProductService productService;
-    @Autowired
-    private SaleService saleService;
-    @Autowired
-    private ProductSaleService productSaleService;
+    SaxCheckParser saxCheckParser;
 
-    @Scheduled(fixedDelay = 1 * 60 * 1000)
+    @Scheduled(fixedDelay = 10 * 60 * 1000, initialDelay = 1000)
     public void parse() {
-        System.out.println("start");
-        SaxCheckParser saxCheckParser = new SaxCheckParser(productService, saleService, productSaleService);
         List<String> fileNames;
         try {
             fileNames = Files.walk(Paths.get(path))

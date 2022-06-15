@@ -1,9 +1,8 @@
 package com.shulgin.maxi.parser;
 
 import com.shulgin.maxi.exception.CheckParserException;
-import com.shulgin.maxi.service.ProductSaleService;
-import com.shulgin.maxi.service.ProductService;
-import com.shulgin.maxi.service.SaleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.SAXParser;
@@ -12,24 +11,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
+@Component
 public class SaxCheckParser {
 
-    private ProductService productService;
-    private SaleService saleService;
-    private ProductSaleService productSaleService;
-
-    public SaxCheckParser(ProductService productService,
-                          SaleService saleService,
-                          ProductSaleService productSaleService) {
-        this.productService = productService;
-        this.saleService = saleService;
-        this.productSaleService = productSaleService;
-    }
+    @Autowired
+    SaxParserHandler handler;
 
     public void parse(String filename) throws CheckParserException {
         Objects.requireNonNull(filename);
         SAXParserFactory factory = SAXParserFactory.newInstance();
-        SaxParserHandler handler = new SaxParserHandler(productService, saleService, productSaleService);
         File file = new File(filename);
         SAXParser parser;
         try {
