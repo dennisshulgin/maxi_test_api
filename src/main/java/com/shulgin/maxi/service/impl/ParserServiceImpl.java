@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -19,6 +20,9 @@ import java.util.stream.Collectors;
 public class ParserServiceImpl implements ParserService {
     @Value("${check.directory}")
     private String path;
+
+    @Value("${oldcheck.directory}")
+    private String to;
 
     @Autowired
     SaxCheckParser saxCheckParser;
@@ -34,6 +38,9 @@ public class ParserServiceImpl implements ParserService {
                     .collect(Collectors.toList());
             for (String name : fileNames) {
                 saxCheckParser.parse(name);
+                String filename = new File(name).getName();
+                System.out.println(to + "/" + filename);
+                Files.move(Paths.get(name), Paths.get(to + "/" + filename));
             }
         } catch (IOException | CheckParserException e) {
             e.printStackTrace();

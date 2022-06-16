@@ -1,0 +1,3 @@
+CREATE USER maxiuser@localhost IDENTIFIED BY 'qwerty123';
+GRANT ALL PRIVILEGES ON *.* TO maxiuser@localhost WITH GRANT OPTION;
+CREATE DATABASE db_maxi;
