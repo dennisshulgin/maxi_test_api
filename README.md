@@ -8,13 +8,13 @@
 - Bootstrap
 
 Приложение содержит две функции:
-- подсчёт суммы за день
-  http://localhost:8080/api/sales.sum?date=DATE
-  DATE - дата в типе Long
-- вывод топ-3 товара по номеру карты
-  http://localhost:8080/api/sales.top?card=NUMBER&limit=LIMIT
-  NUMBER - номер карты
-  LIMIT - количество товаров
+- подсчёт суммы за день<br/>
+  http://localhost:8080/api/sales.sum?date=DATE<br/>
+  DATE - дата в типе Long<br/>
+- вывод топ-3 товара по номеру карты<br/>
+  http://localhost:8080/api/sales.top?card=NUMBER&limit=LIMIT<br/>
+  NUMBER - номер карты<br/>
+  LIMIT - количество товаров<br/>
 
 Скрипт init_db.sql в корневом каталоге для инициализации базы данных.
 Сборка приложения ./mvnw package
