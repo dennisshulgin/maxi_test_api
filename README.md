@@ -20,3 +20,5 @@
 Сборка приложения ./mvnw package
 
 Чеки хранятся в папке checks, после обработки переносятся в папку checks-old.
+
+![Screenshot](https://user-images.githubusercontent.com/97829657/174144483-3e325798-50b1-4c59-b6ae-3789f80c942a.png)
