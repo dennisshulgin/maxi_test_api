@@ -40,10 +40,8 @@ public class SaxParserHandler extends DefaultHandler {
     private boolean isProductPrice = false;
 
     private String cardNumber;
-
     private java.sql.Date date;
     private java.sql.Time time;
-
     private Long productCode;
     private String productName;
     private BigDecimal productPrice;
@@ -53,12 +51,10 @@ public class SaxParserHandler extends DefaultHandler {
 
     @Override
     public void startDocument() throws SAXException {
-        System.out.println("Start document");
     }
 
     @Override
     public void endDocument() throws SAXException {
-        System.out.println("End document");
     }
 
     @Override

@@ -62,7 +62,9 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return Objects.equals(productCode, product.productCode) && Objects.equals(productName, product.productName) && Objects.equals(productPrice, product.productPrice);
+        return Objects.equals(productCode, product.productCode)
+                && Objects.equals(productName, product.productName)
+                && Objects.equals(productPrice, product.productPrice);
     }
 
     @Override

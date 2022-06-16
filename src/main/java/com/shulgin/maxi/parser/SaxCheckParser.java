@@ -17,17 +17,15 @@ public class SaxCheckParser {
     @Autowired
     SaxParserHandler handler;
 
-    public void parse(String filename) throws CheckParserException {
-        Objects.requireNonNull(filename);
+    public void parse(File file) throws CheckParserException {
+        Objects.requireNonNull(file);
         SAXParserFactory factory = SAXParserFactory.newInstance();
-        File file = new File(filename);
         SAXParser parser;
         try {
             parser = factory.newSAXParser();
         } catch (Exception e) {
             throw new CheckParserException("Open sax parser error: " + e.getMessage());
         }
-
         try {
             parser.parse(file, handler);
         }catch (SAXException e) {

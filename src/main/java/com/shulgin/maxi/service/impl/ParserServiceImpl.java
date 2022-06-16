@@ -21,7 +21,7 @@ public class ParserServiceImpl implements ParserService {
     @Value("${check.directory}")
     private String path;
 
-    @Value("${oldcheck.directory}")
+    @Value("${check.old.directory}")
     private String to;
 
     @Autowired
@@ -29,18 +29,17 @@ public class ParserServiceImpl implements ParserService {
 
     @Scheduled(fixedDelay = 10 * 60 * 1000, initialDelay = 1000)
     public void parse() {
-        List<String> fileNames;
+        List<File> files;
         try {
-            fileNames = Files.walk(Paths.get(path))
+            files = Files.walk(Paths.get(path))
                     .filter(Files::isRegularFile)
-                    .map(Path::toString)
-                    .filter(x -> x.endsWith(".xml"))
+                    .map(Path::toFile)
+                    .filter(x -> x.getName().endsWith(".xml"))
                     .collect(Collectors.toList());
-            for (String name : fileNames) {
-                saxCheckParser.parse(name);
-                String filename = new File(name).getName();
-                System.out.println(to + "/" + filename);
-                Files.move(Paths.get(name), Paths.get(to + "/" + filename));
+            for (File file : files) {
+                saxCheckParser.parse(file);
+                String filename = file.getName();
+                Files.move(Paths.get(file.getPath()), Paths.get(to + "/" + filename));
             }
         } catch (IOException | CheckParserException e) {
             e.printStackTrace();

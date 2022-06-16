@@ -4,7 +4,6 @@ import com.shulgin.maxi.entity.Product;
 import com.shulgin.maxi.entity.Sum;
 import com.shulgin.maxi.service.ProductSaleService;
 import com.shulgin.maxi.service.ProductService;
-import com.shulgin.maxi.service.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +18,6 @@ public class SaleController {
 
     @Autowired
     private ProductService productService;
-    @Autowired
-    private SaleService saleService;
     @Autowired
     private ProductSaleService productSaleService;
 

@@ -11,9 +11,7 @@ public class Sale {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String cardNumber;
-
     private java.sql.Date date;
-
     private java.sql.Time time;
 
     @OneToMany(mappedBy = "sale", fetch = FetchType.EAGER)
